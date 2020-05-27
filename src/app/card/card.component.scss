@@ -1,0 +1,21 @@
+$header-height: 100px;
+$header-offset: 20px;
+
+.hh-card {
+  &--header__container {
+    height: calc(#{$header-height} - #{$header-offset});
+    margin-bottom: calc(#{$header-offset} + 10px);
+
+    ion-card-subtitle, ion-card-title {
+      color: var(--ion-color-light);
+    }
+  }
+
+  &--header__image {
+    position: absolute;
+    width: 100%;
+    height: $header-height;
+    object-fit: cover;
+    object-position: bottom;
+  }
+}

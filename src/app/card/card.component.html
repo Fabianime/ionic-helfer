@@ -1,0 +1,22 @@
+<ion-card [color]="'tertiary'" *ngIf="type && image">
+    <img [src]="image" class="hh-card--header__image"/>
+
+    <ion-card-header class="hh-card--header__container">
+        <ion-card-title>{{ title }}</ion-card-title>
+        <ion-card-subtitle>
+            <ng-container *ngFor="let tag of tags">
+                #{{tag}}
+            </ng-container>
+        </ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content *ngIf="userData && summary && eventData">
+        <b>{{ userData.firstName }}, {{userData.age }}</b>
+        <p>
+            {{ summary }}
+        </p>
+        <p>
+            {{ eventData.city }}, {{ eventData.date }}
+        </p>
+    </ion-card-content>
+</ion-card>
