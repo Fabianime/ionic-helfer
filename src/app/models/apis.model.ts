@@ -11,12 +11,18 @@ export interface EventData {
 }
 
 export interface Post {
+  id: string;
   type: string;
   title: string;
   tags: string[];
   summary: string;
   userData: UserData;
   eventData: EventData;
+  isHelping?: boolean;
+}
+
+export interface HelpingPost {
+  postId: string;
 }
 
 export interface ImageTypeList {

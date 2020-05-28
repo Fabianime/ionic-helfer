@@ -1,22 +1,36 @@
 <ion-card [color]="'tertiary'" *ngIf="type && image">
-    <img [src]="image" class="hh-card--header__image"/>
+  <img [src]="image" [alt]="type" class="hh-card--header__image"/>
+  <div class="hh-card--header__image-overlay"></div>
 
-    <ion-card-header class="hh-card--header__container">
-        <ion-card-title>{{ title }}</ion-card-title>
-        <ion-card-subtitle>
-            <ng-container *ngFor="let tag of tags">
-                #{{tag}}
-            </ng-container>
-        </ion-card-subtitle>
-    </ion-card-header>
+  <ion-card-header class="hh-card--header__container">
+    <ion-card-title>{{ title }}</ion-card-title>
+    <ion-card-subtitle>
+      <ng-container *ngFor="let tag of tags">
+        #{{tag}}
+      </ng-container>
+    </ion-card-subtitle>
+  </ion-card-header>
 
-    <ion-card-content *ngIf="userData && summary && eventData">
-        <b>{{ userData.firstName }}, {{userData.age }}</b>
-        <p>
-            {{ summary }}
-        </p>
-        <p>
-            {{ eventData.city }}, {{ eventData.date }}
-        </p>
-    </ion-card-content>
+  <ion-card-content *ngIf="userData && summary && eventData" class="hh-card--card-body">
+    <div class="hh-card--card-body__col-1">
+      <p class="hh-card--strong">{{ userData.firstName }}, {{userData.age }}</p>
+      <p>
+        {{ summary }}
+      </p>
+      <p>
+        {{ eventData.city }}, {{ eventData.date }}
+      </p>
+    </div>
+
+    <div class="hh-card--card-body__col-2">
+      <ion-avatar class="hh-card--card-body__avatar">
+        <img [src]="userData.profileImg" [alt]="userData.firstName">
+      </ion-avatar>
+      <ion-icon (click)="toggleHelping()"
+                [class.hh-card--card-body__hand-active]="isHelping"
+                size="large"
+                class="hh-card--card-body__hand"
+                name="hand-right"></ion-icon>
+    </div>
+  </ion-card-content>
 </ion-card>

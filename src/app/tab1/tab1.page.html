@@ -13,16 +13,18 @@
     </ion-toolbar>
   </ion-header>
 
-  <hh-card *ngFor="let post of posts; index as i; trackBy: trackByFn"
+  <hh-card *ngFor="let post of posts$ | async; index as i; trackBy: trackByFn"
            [type]="post.type"
            [tags]="post.tags"
            [title]="post.title"
+           [isHelping]="post.isHelping"
            [userData]="post.userData"
            [eventData]="post.eventData"
            [summary]="post.summary"
+           (toggle)="sendChangeToApi($event, post.id)"
   ></hh-card>
 
-  <ion-infinite-scroll threshold="25%" (ionInfinite)="extendPosts($event)">
+  <ion-infinite-scroll threshold="25%" (ionInfinite)="fillPosts($event)">
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>

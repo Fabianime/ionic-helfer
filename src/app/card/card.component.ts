@@ -1,17 +1,20 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { EventData, ImageTypeList, UserData } from '../models/apis.model';
 import { of } from 'rxjs';
 
 @Component({
   selector: 'hh-card',
   templateUrl: './card.component.html',
-  styleUrls: ['./card.component.scss'],
+  styleUrls: [ './card.component.scss' ],
 })
 export class CardComponent implements OnChanges {
+  @Output() public toggle: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   @Input() public type: string;
   @Input() public title: string;
   @Input() public tags: string[];
   @Input() public summary: string;
+  @Input() public isHelping: boolean;
   @Input() public userData: UserData;
   @Input() public eventData: EventData;
 
@@ -23,12 +26,17 @@ export class CardComponent implements OnChanges {
     }
   }
 
+  public toggleHelping(): void {
+    this.isHelping = !this.isHelping;
+    this.toggle.emit(this.isHelping);
+  }
+
   private fillImages() {
     const imageList: ImageTypeList = {
-      first: ['https://ionicframework.com/docs/demos/api/card/madison.jpg'],
-      garden: ['assets/images/garden1.jpeg', 'assets/images/garden2.jpeg'],
-      move: ['assets/images/move1.jpeg'],
-      diy: ['assets/images/diy1.jpeg'],
+      first: [ 'https://ionicframework.com/docs/demos/api/card/madison.jpg' ],
+      garden: [ 'assets/images/garden1.jpeg', 'assets/images/garden2.jpeg' ],
+      move: [ 'assets/images/move1.jpeg' ],
+      diy: [ 'assets/images/diy1.jpeg' ],
     };
     // mock valuable images for different tags request
     of(imageList).subscribe((images) => {

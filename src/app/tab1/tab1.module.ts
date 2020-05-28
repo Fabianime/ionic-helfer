@@ -6,6 +6,7 @@ import { Tab1Page } from './tab1.page';
 
 import { Tab1PageRoutingModule } from './tab1-routing.module';
 import { CardComponentModule } from '../card/card.component.module';
+import { PostDataService } from '../services/post-data.service';
 
 @NgModule({
   imports: [
@@ -13,8 +14,10 @@ import { CardComponentModule } from '../card/card.component.module';
     CommonModule,
     FormsModule,
     CardComponentModule,
-    Tab1PageRoutingModule
+    Tab1PageRoutingModule,
   ],
-  declarations: [Tab1Page]
+  declarations: [ Tab1Page ],
+  providers: [ PostDataService ],
 })
-export class Tab1PageModule {}
+export class Tab1PageModule {
+}

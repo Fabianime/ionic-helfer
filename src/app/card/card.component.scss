@@ -17,5 +17,49 @@ $header-offset: 20px;
     height: $header-height;
     object-fit: cover;
     object-position: bottom;
+
+    &-overlay {
+      background: var(--ion-color-dark);
+      opacity: .4;
+      height: 100px;
+      width: 100%;
+      position: absolute;
+    }
+  }
+
+  &--strong {
+    font-weight: bold;
+  }
+
+  &--card-body {
+    display: flex;
+
+    &__col-1 {
+      width: 75%;
+    }
+
+    &__col-2 {
+      width: 25%;
+      display: flex;
+      flex-flow: wrap;
+      flex-direction: row-reverse;
+    }
+
+    &__avatar {
+      margin-top: -35px;
+    }
+
+    &__helping {
+      margin-left: 50%;
+    }
+
+    &__hand {
+      fill: var(--ion-color-medium);
+      width: 48px;
+
+      &-active {
+        fill: var(--ion-color-hand-button);
+      }
+    }
   }
 }

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Post } from '../models/apis.model';
-import { of } from 'rxjs';
-import { delay, first } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
+import { first } from 'rxjs/operators';
+import { PostDataService } from '../services/post-data.service';
 
 @Component({
   selector: 'hh-tab1',
@@ -9,39 +10,35 @@ import { delay, first } from 'rxjs/operators';
   styleUrls: [ 'tab1.page.scss' ]
 })
 export class Tab1Page implements OnInit {
-  public posts: Post[];
+  public posts$: BehaviorSubject<Post[]> = new BehaviorSubject<Post[]>([]);
+  private startPosition = 0;
 
-  private post: Post = {
-    type: 'garden',
-    title: 'Garten Pflege',
-    tags: [ 'garden', 'watering' ],
-    summary: 'Hilfe bei meiner Gartenpflege',
-    userData: { firstName: 'Fabian', age: '60' },
-    eventData: { city: 'Stuttgart', date: '22.06.2020' },
-  };
+  constructor(private readonly postDataService: PostDataService) {
+  }
 
   public ngOnInit(): void {
     this.fillPosts();
   }
 
-  public trackByFn(index: number, data: any): number {
-    return index;
+  public trackByFn(index: number, data: any): string {
+    return data.id;
   }
 
-  private fillPosts() {
-    this.posts = [ this.post, this.post, this.post ];
+  private fillPosts(event?: any): void {
+    this.postDataService.getPostsWithHelpingIndicator(this.startPosition, 5)
+      .pipe(first())
+      .subscribe((posts) => {
+        posts = [ ...this.posts$.value, ...posts ];
+        this.posts$.next(posts);
+
+        if (event) {
+          event.target.complete();
+        }
+      });
+    this.startPosition += 5;
   }
 
-  public extendPosts(event) {
-    of('').pipe(
-      first(),
-      delay(1500)
-    ).subscribe(() => {
-      this.posts.push(this.post);
-      this.posts.push(this.post);
-      this.posts.push(this.post);
-      event.target.complete();
-    });
+  public sendChangeToApi(isHelping: boolean, id: string) {
+    this.postDataService.updateHelpingStatus(id, isHelping).subscribe();
   }
-
 }
