@@ -7,7 +7,7 @@
     "ng": "ng",
     "start": "ng serve",
     "cordova": "ionic cordova run browser",
-    "build": "ng build",
+    "build": "ionic build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
